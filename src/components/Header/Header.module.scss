@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 50px;
+  padding: 25px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  width: fit-content;
+  img {
+    height: 50px;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  span {
+    cursor: pointer;
+    border-bottom: 2px solid #ff0000;
+    padding-bottom: 7px;
+  }
+}

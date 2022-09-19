@@ -5,7 +5,7 @@ import HomePage from "./screens/HomePage/HomePage";
 
 const App = () => {
 
-    const [film, setFilm] = useState(false)
+ /*   const [film, setFilm] = useState(false)
 
     useEffect(()=>{
         fetch('https://api.themoviedb.org/3/movie/773867/videos?api_key=04c35731a5ee918f014970082a0088b1')
@@ -17,7 +17,7 @@ const App = () => {
             .catch(err => console.log(err))
     },[])
 
-    if (!film) return null
+    if (!film) return null*/
 
     return (
         <div>

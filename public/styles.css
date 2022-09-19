@@ -167,3 +167,7 @@ select {
   text-indent: 1px;
   text-overflow: '';
 }
+
+.swiper-wrapper {
+  transition-timing-function: linear;
+}

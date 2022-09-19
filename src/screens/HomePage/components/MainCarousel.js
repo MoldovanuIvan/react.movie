@@ -1,32 +1,55 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from '../styles.module.scss'
-import {Swiper, SwiperSlide} from 'swiper/react';
+import {Swiper, SwiperSlide} from "swiper/react";
 
-import 'swiper/css';
-import 'swiper/css/bundle'
-import SwiperCore ,{Navigation, Autoplay} from "swiper";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/autoplay";
+import 'swiper/css/effect-fade';
+
+import {Autoplay, EffectCoverflow} from "swiper";
+import SText from "../../../components/SText";
 
 const MainCarousel = () => {
-    SwiperCore.use([Autoplay])
-    return <div className={styles.sliderWrapper}>
+
+    const [movies, setMovies] = useState(false)
+
+    useEffect(() => {
+        fetch('https://api.themoviedb.org/3/movie/popular?api_key=04c35731a5ee918f014970082a0088b1&page=1')
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+                setMovies(json.results)
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+    if (!movies) return null
+
+    return <div>
         <Swiper
-            className={styles.swiperWrapper}
-            modules={[Navigation]}
-            spaceBetween={50}
             slidesPerView={1}
-            simulateTouch={true}
-            autoplay={{delay: 500}}
-            navigation
-            pagination={true}
-            speed={300}
+            spaceBetween={0}
+            modules={[Autoplay, EffectCoverflow]}
+            className={styles.sliderWrapper}
+            autoplay={{delay: 2000}}
+            speed={2000}
             loop
-            onSwiper={(swiper) => console.log(swiper)}>
-            <SwiperSlide className={styles.slide}>Slide 1</SwiperSlide>
-            <SwiperSlide className={styles.slide}>Slide 2</SwiperSlide>
-            <SwiperSlide className={styles.slide}>Slide 3</SwiperSlide>
-            <SwiperSlide className={styles.slide}>Slide 4</SwiperSlide>
-            <SwiperSlide className={styles.slide}>Slide 5</SwiperSlide>
-            <SwiperSlide className={styles.slide}>Slide 6</SwiperSlide>
+            effect={'coverflow'}
+        >
+            {movies.map(item => <SwiperSlide className={styles.slide} key={item.id}>
+                <img src={'https://image.tmdb.org/t/p/w1280' + item.backdrop_path}/>
+                <div className={styles.info}>
+                    <div>
+                        <div className={styles.title}><SText size={70} weight={900} color={'#fff'}
+                                                             lineHeight={30}>{item.title}</SText></div>
+                        <div className={styles.description}>{item.overview}</div>
+                    </div>
+                    <div className={styles.poster}>
+                        <img src={'https://image.tmdb.org/t/p/w1280' + item.poster_path}/>
+                    </div>
+                </div>
+            </SwiperSlide>)}
         </Swiper>
     </div>
 }

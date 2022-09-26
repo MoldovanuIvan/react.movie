@@ -9,22 +9,19 @@ import 'swiper/css/effect-fade';
 
 import {Autoplay, EffectCoverflow} from "swiper";
 import SText from "../../../components/SText";
+import {useDispatch, useSelector} from "react-redux";
+import {getSlides} from "../../../redux/reducers/sliderSlice";
 
 const MainCarousel = () => {
 
-    const [movies, setMovies] = useState(false)
+    const dispatch = useDispatch()
+    const movies = useSelector(state => state.slides.movies)
 
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/movie/popular?api_key=04c35731a5ee918f014970082a0088b1&page=1')
-            .then(res => res.json())
-            .then(json => {
-                console.log(json)
-                setMovies(json.results)
-            })
-            .catch(err => console.log(err))
+        dispatch(getSlides())
     }, [])
 
-    if (!movies) return null
+    if (!movies?.length) return null
 
     return <div>
         <Swiper
@@ -43,13 +40,15 @@ const MainCarousel = () => {
                     <div>
                         <div className={styles.title}><SText size={70} weight={900} color={'#fffcfc'}
                                                              lineHeight={70}>{item.title}</SText></div>
-                        <div className={styles.description}><SText size={15} weight={500} color={'#fffcfc'} lineHeight={20}>{item.overview}</SText></div>
+                        <div className={styles.description}><SText size={15} weight={500} color={'#fffcfc'}
+                                                                   lineHeight={20}>{item.overview}</SText></div>
                         <div className={styles.buttons}>
                             <div className={styles.watchNowBtn}>
                                 <SText size={20} weight={500} lineHeight={20} color={'#fffcfc'}>{'Watch now'}</SText>
                             </div>
                             <div className={styles.watchTrailerBtn}>
-                                <SText size={20} weight={500} lineHeight={20} color={'#fffcfc'}>{'Watch trailer'}</SText>
+                                <SText size={20} weight={500} lineHeight={20}
+                                       color={'#fffcfc'}>{'Watch trailer'}</SText>
                             </div>
                         </div>
                     </div>

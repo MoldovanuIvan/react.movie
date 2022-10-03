@@ -93,4 +93,21 @@
   cursor: pointer;
   user-select: none;
   border: 2px solid #fffcfc;
+  color: #fffcfc;
+  size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s 0s;
+}
+
+.watchTrailerBtn:hover {
+  background: #fffcfc;
+  color: #ff0000;
+}
+
+.modal {
+  padding: 20px;
+  background: #0f0f0f;
+
 }

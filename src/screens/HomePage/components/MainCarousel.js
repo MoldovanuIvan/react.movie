@@ -10,12 +10,17 @@ import 'swiper/css/effect-fade';
 import {Autoplay, EffectCoverflow} from "swiper";
 import SText from "../../../components/SText";
 import {useDispatch, useSelector} from "react-redux";
-import {getSlides} from "../../../redux/reducers/sliderSlice";
+import {clearMovieTrailer, getSliderTrailer, getSlides} from "../../../redux/reducers/sliderSlice";
+import {Box, Modal} from "@mui/material";
+import closeModal from '../../../assets/images/closeModal.svg'
+import ReactPlayer from "react-player";
 
 const MainCarousel = () => {
 
     const dispatch = useDispatch()
     const movies = useSelector(state => state.slides.movies)
+    const [trailerModal, setTrailerModal] = useState(false)
+    const [trailerId, setTrailerId] = useState(null)
 
     useEffect(() => {
         dispatch(getSlides())
@@ -27,10 +32,11 @@ const MainCarousel = () => {
         <Swiper
             slidesPerView={1}
             spaceBetween={0}
-            modules={[Autoplay, EffectCoverflow]}
+            modules={[/*Autoplay,*/ EffectCoverflow]}
             className={styles.sliderWrapper}
-            autoplay={{delay: 2000}}
-            speed={2000}
+            grabCursor={true}
+            /*            autoplay={{delay: 2000}}*/
+            /*speed={2000}*/
             loop
             effect={'coverflow'}
         >
@@ -46,9 +52,11 @@ const MainCarousel = () => {
                             <div className={styles.watchNowBtn}>
                                 <SText size={20} weight={500} lineHeight={20} color={'#fffcfc'}>{'Watch now'}</SText>
                             </div>
-                            <div className={styles.watchTrailerBtn}>
-                                <SText size={20} weight={500} lineHeight={20}
-                                       color={'#fffcfc'}>{'Watch trailer'}</SText>
+                            <div onClick={() => {
+                                setTrailerId(item.id)
+                                setTrailerModal(true)
+                            }} className={styles.watchTrailerBtn}>
+                                {'Watch trailer'}
                             </div>
                         </div>
                     </div>
@@ -58,7 +66,32 @@ const MainCarousel = () => {
                 </div>
             </SwiperSlide>)}
         </Swiper>
+        {trailerModal && <TrailerModal trailerId={trailerId} onClose={() => {
+            setTrailerModal(false)
+            dispatch(clearMovieTrailer())
+        }}/>}
     </div>
+}
+
+const TrailerModal = ({onClose, trailerId}) => {
+    const dispatch = useDispatch()
+    const trailerKey = useSelector(state => state.slides.currentMovieTrailer)
+
+    useEffect(() => {
+        dispatch(getSliderTrailer(trailerId))
+    }, [trailerId])
+
+    return <Modal
+        open={true}
+        onClose={onClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+    >
+        <Box className={styles.modal}>
+            <ReactPlayer playing={false} controls url={'https://www.youtube.com/embed/' + trailerKey}/>
+        </Box>
+    </Modal>
 }
 
 export default MainCarousel

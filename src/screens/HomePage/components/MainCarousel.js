@@ -14,6 +14,7 @@ import {clearMovieTrailer, getSliderTrailer, getSlides} from "../../../redux/red
 import {Box, Modal} from "@mui/material";
 import closeModal from '../../../assets/images/closeModal.svg'
 import ReactPlayer from "react-player";
+import {NavLink} from "react-router-dom";
 
 const MainCarousel = () => {
 
@@ -49,9 +50,12 @@ const MainCarousel = () => {
                         <div className={styles.description}><SText size={15} weight={500} color={'#fffcfc'}
                                                                    lineHeight={20}>{item.overview}</SText></div>
                         <div className={styles.buttons}>
-                            <div className={styles.watchNowBtn}>
-                                <SText size={20} weight={500} lineHeight={20} color={'#fffcfc'}>{'Watch now'}</SText>
-                            </div>
+                            <NavLink to={`/movie/${item.id}`}>
+                                <div className={styles.watchNowBtn}>
+                                    <SText size={20} weight={500} lineHeight={20}
+                                           color={'#fffcfc'}>{'Watch now'}</SText>
+                                </div>
+                            </NavLink>
                             <div onClick={() => {
                                 setTrailerId(item.id)
                                 setTrailerModal(true)
@@ -89,6 +93,7 @@ const TrailerModal = ({onClose, trailerId}) => {
         style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
     >
         <Box className={styles.modal}>
+            <img onClick={onClose} src={closeModal}/>
             <ReactPlayer playing={false} controls url={'https://www.youtube.com/embed/' + trailerKey}/>
         </Box>
     </Modal>

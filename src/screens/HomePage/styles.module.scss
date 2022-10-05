@@ -107,7 +107,15 @@
 }
 
 .modal {
-  padding: 20px;
+  padding: 25px;
   background: #0f0f0f;
+  position: relative;
+}
 
+.modal img {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  height: 15px;
 }

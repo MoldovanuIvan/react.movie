@@ -1,0 +1,25 @@
+.headerBG {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+}
+
+.headerBG::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+}
+
+.headerBG::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-image: linear-gradient(to top, #0f0f0f, rgba(#000, 0));
+}

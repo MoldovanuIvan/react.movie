@@ -37,7 +37,9 @@ const sliderSlice = createSlice({
             state.movies = action.payload
         },
         [getSliderTrailer.fulfilled]: (state, action) => {
-            state.currentMovieTrailer = action.payload[0].key
+            const trailer = action.payload.findIndex(item => item.name.toUpperCase().indexOf('TRAILER', 0) !== -1)
+            if (trailer !== -1) state.currentMovieTrailer = action.payload[trailer].key
+            else state.currentMovieTrailer = action.payload[0].key
         }
     }
 })

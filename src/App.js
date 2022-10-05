@@ -1,34 +1,27 @@
-import React, {useEffect, useState} from "react"
-import ReactPlayer from 'react-player'
+import React from "react"
 import Header from "./components/Header/Header";
 import HomePage from "./screens/HomePage/HomePage";
 import {Provider} from "react-redux";
 import store from './redux/store'
+import {
+    BrowserRouter,
+    Routes, Route,
+} from "react-router-dom";
+import FilmPage from "./screens/FilmPage/FilmPage";
 
 const App = () => {
 
-    /*   const [film, setFilm] = useState(false)
-
-       useEffect(()=>{
-           fetch('https://api.themoviedb.org/3/movie/773867/videos?api_key=04c35731a5ee918f014970082a0088b1')
-               .then(res => res.json())
-               .then(json => {
-                   console.log(json)
-                   setFilm(json)
-               })
-               .catch(err => console.log(err))
-       },[])
-
-       if (!film) return null*/
-
     return (
         <Provider store={store}>
-            <div>
-                <Header/>
-                {/*  <ReactPlayer playing={true} url={'https://www.youtube.com/embed/' + film.results[1].key}/>*/}
-                <HomePage/>
-
-            </div>
+            <BrowserRouter>
+                <div>
+                    <Header/>
+                    <Routes>
+                        <Route path={'/*'} element={<HomePage/>}/>
+                        <Route path={'/movie/:id'} element={<FilmPage/>}/>
+                    </Routes>
+                </div>
+            </BrowserRouter>
         </Provider>
     );
 }

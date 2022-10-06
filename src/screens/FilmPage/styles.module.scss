@@ -23,3 +23,74 @@
   height: 100px;
   background-image: linear-gradient(to top, #0f0f0f, rgba(#000, 0));
 }
+
+.infoWrapper {
+  max-width: 900px;
+  margin: -100px auto 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+}
+
+.poster {
+  height: 450px;
+  min-width: 300px;
+  max-width: 300px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  img {
+    border-radius: 24px;
+    width: 100%;
+  }
+}
+
+.info {
+  margin-top: 0;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.genres {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.genre {
+  background: #0f0f0f;
+  border: 1px solid #fffcfc;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: 16px;
+}
+
+.overview {
+  margin-bottom: 30px;
+}
+
+.castsTitle {
+  margin-bottom: 10px;
+}
+
+.casts {
+  display: flex;
+  gap: 8px;
+}
+
+.person {
+  width: 100px;
+}
+
+.person img {
+  width: 100px;
+}
+
+.personImage {
+  margin-bottom: 5px;
+}

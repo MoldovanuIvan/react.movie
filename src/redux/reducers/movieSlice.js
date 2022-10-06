@@ -51,7 +51,8 @@ const movieSlice = createSlice({
             state.genres = action.payload.genres
             state.overview = action.payload.overview
             state.title = action.payload.title
-            state.poster = action.payload.backdrop_path
+            state.backdrop = action.payload.backdrop_path
+            state.poster = action.payload.poster_path
         },
         [getMovieSimilar.fulfilled]: (state, action) => {
             state.similar = action.payload

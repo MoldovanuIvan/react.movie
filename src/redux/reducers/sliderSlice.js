@@ -28,7 +28,7 @@ const sliderSlice = createSlice({
     name: 'slider',
     initialState,
     reducers: {
-        clearMovieTrailer: (state, action) => {
+        clearMovieTrailer: (state) => {
             state.currentMovieTrailer = null
         }
     },

@@ -41,7 +41,11 @@ export const getMovieSimilar = createAsyncThunk(
 const movieSlice = createSlice({
     name: 'movie',
     initialState,
-    reducers: {},
+    reducers: {
+        clearMovieInfo: (state) => {
+            return initialState
+        }
+    },
     extraReducers: {
         [getMovieCast.fulfilled]: (state, action) => {
             state.cast = [...action.payload]
@@ -60,4 +64,5 @@ const movieSlice = createSlice({
     }
 })
 
+export const {clearMovieInfo} = movieSlice.actions
 export default movieSlice.reducer

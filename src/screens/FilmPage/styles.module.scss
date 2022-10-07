@@ -26,7 +26,7 @@
 
 .infoWrapper {
   max-width: 900px;
-  margin: -100px auto 0;
+  margin: -100px auto 40px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -93,4 +93,29 @@
 
 .personImage {
   margin-bottom: 5px;
+}
+
+.trailers {
+  max-width: 1300px;
+  padding: 0 50px;
+  margin: 0 auto 50px;
+}
+
+.trailerTitle {
+  margin-bottom: 20px;
+}
+
+.trailer {
+  margin-bottom: 20px;
+
+  div {
+    width: 100% !important;
+    height: 600px !important;
+  }
+}
+
+.similar {
+  max-width: 1300px;
+  padding: 0 50px;
+  margin: 0 auto 50px;
 }

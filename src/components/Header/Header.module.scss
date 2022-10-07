@@ -5,8 +5,12 @@
   padding: 25px 50px;
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 2;
   width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .logo {

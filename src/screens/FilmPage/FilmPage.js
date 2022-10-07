@@ -2,8 +2,17 @@ import React, {useEffect} from 'react'
 import styles from './styles.module.scss'
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {clearMovieInfo, getMovieCast, getMovieInfo, getMovieSimilar} from "../../redux/reducers/movieSlice";
+import {
+    clearMovieInfo,
+    getMovieCast,
+    getMovieInfo,
+    getMovieSimilar,
+    getMovieTrailers
+} from "../../redux/reducers/movieSlice";
 import SText from "../../components/SText";
+import ReactPlayer from "react-player";
+import {Swiper, SwiperSlide} from "swiper/react";
+import FilmCard from "../../components/FilmCard/FilmCard";
 
 const FilmPage = () => {
     const {id} = useParams()
@@ -14,6 +23,7 @@ const FilmPage = () => {
         dispatch(getMovieInfo(id))
         dispatch(getMovieCast(id))
         dispatch(getMovieSimilar(id))
+        dispatch(getMovieTrailers(id))
     }, [id])
 
     useEffect(() => {
@@ -47,6 +57,26 @@ const FilmPage = () => {
                     </div>)}</div>
                 </div>
             </div>
+        </div>
+        <div className={styles.trailers}>
+            {
+                movieInfo.trailers.slice(0,4).map(item => <div>
+                    <div className={styles.trailerTitle}><SText size={20} lineHeight={20} weight={600}>{item.name}</SText></div>
+                    <div className={styles.trailer}><ReactPlayer url={'https://www.youtube.com/embed/' + item.key} controls playing={false}/></div>
+                </div>)
+            }
+        </div>
+        <div className={styles.similar}>
+            <Swiper
+                slidesPerView={6.5}
+                spaceBetween={8}
+            >
+                {
+                    movieInfo.similar.map(item => <SwiperSlide>
+                        <FilmCard id={item.id} title={item.title} poster={item.poster_path}/>
+                    </SwiperSlide>)
+                }
+            </Swiper>
         </div>
     </div>
 }

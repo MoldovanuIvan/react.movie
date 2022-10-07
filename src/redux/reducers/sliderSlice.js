@@ -19,7 +19,6 @@ export const getSliderTrailer = createAsyncThunk(
     'slider/getSliderTrailer',
     async (id) => {
         const response = await axios.get(BASE_URL + 'movie/' + id + '/videos?api_key=' + token)
-        console.log(response)
         return response?.data?.results
     }
 )

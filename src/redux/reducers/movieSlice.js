@@ -17,7 +17,6 @@ export const getMovieInfo = createAsyncThunk(
     'movie/getMovieInfo',
     async (id) => {
         const response = await axios.get(BASE_URL + 'movie/' + id + '?api_key=' + token)
-        console.log(response.data)
         return response?.data
     }
 )
@@ -34,6 +33,14 @@ export const getMovieSimilar = createAsyncThunk(
     'movie/getMovieSimilar',
     async (id) => {
         const response = await axios.get(BASE_URL + 'movie/' + id + '/similar' + '?api_key=' + token)
+        return response?.data?.results
+    }
+)
+
+export const getMovieTrailers = createAsyncThunk(
+    'movie/getMovieTrailers',
+    async (id) => {
+        const response = await axios.get(BASE_URL + 'movie/' + id + '/videos?api_key=' + token)
         return response?.data?.results
     }
 )
@@ -60,6 +67,9 @@ const movieSlice = createSlice({
         },
         [getMovieSimilar.fulfilled]: (state, action) => {
             state.similar = action.payload
+        },
+        [getMovieTrailers.fulfilled]: (state, action) => {
+            state.trailers = action.payload
         }
     }
 })

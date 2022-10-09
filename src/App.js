@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import FilmPage from "./screens/FilmPage/FilmPage";
 import Footer from "./components/Footer/Footer";
+import ViewMoreMovies from "./screens/ViewMoreMovies/ViewMoreMovies";
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
                     <Routes>
                         <Route path={'/*'} element={<HomePage/>}/>
                         <Route path={'/:type/:id'} element={<FilmPage/>}/>
+                        <Route path={'/movie'} element={<ViewMoreMovies/>}/>
                     </Routes>
                     <Footer/>
                 </div>

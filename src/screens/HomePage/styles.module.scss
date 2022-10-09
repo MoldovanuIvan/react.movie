@@ -130,10 +130,32 @@
 
 .proposalTitle {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.proposalTitle a {
+  color: #fff;
 }
 
 .proposalLine {
   max-width: 1300px;
   padding: 0 50px;
   margin: 0 auto 20px;
+
+}
+
+.moreBtn {
+  font-weight: 500;
+  border: 1px solid #fff;
+  padding: 3px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.moreBtn:hover {
+  transition: all 0.3s ease;
+  background: #fff;
+  color: #ff0000;
 }

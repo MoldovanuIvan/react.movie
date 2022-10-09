@@ -5,6 +5,7 @@ import {getProposal} from "../../../redux/reducers/proposalSlice";
 import {Swiper, SwiperSlide} from "swiper/react";
 import FilmCard from "../../../components/FilmCard/FilmCard";
 import SText from "../../../components/SText";
+import {NavLink} from "react-router-dom";
 
 const ProposedMovies = () => {
     const dispatch = useDispatch()
@@ -20,7 +21,10 @@ const ProposedMovies = () => {
     const proposalCreator = (title, data, type) => {
 
         return <div className={styles.proposalLine}>
-            <div className={styles.proposalTitle}><SText size={20} lineHeight={20} weight={600}>{title}</SText></div>
+            <div className={styles.proposalTitle}>
+                <SText size={20} lineHeight={20} weight={600}>{title}</SText>
+                <NavLink to={'/' + type}><div className={styles.moreBtn}>{'View more'}</div></NavLink>
+            </div>
             <div className={styles.proposal}>
                 <Swiper
                     slidesPerView={6.5}

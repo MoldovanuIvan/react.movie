@@ -73,7 +73,7 @@ const FilmPage = () => {
             >
                 {
                     movieInfo.similar.map(item => <SwiperSlide>
-                        <FilmCard id={item.id} title={item.title} poster={item.poster_path}/>
+                        <FilmCard id={item.id} title={item.title} poster={item.poster_path} rating={item.vote_average}/>
                     </SwiperSlide>)
                 }
             </Swiper>

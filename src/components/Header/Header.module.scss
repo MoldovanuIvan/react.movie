@@ -1,16 +1,24 @@
 .wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 25px 50px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 2;
+
+  transition: background-color 0.3s ease;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 50px;
+
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
+
+  transition: padding 0.3s ease;
 }
 
 .logo {

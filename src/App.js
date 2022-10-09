@@ -8,6 +8,7 @@ import {
     Routes, Route,
 } from "react-router-dom";
 import FilmPage from "./screens/FilmPage/FilmPage";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
                         <Route path={'/*'} element={<HomePage/>}/>
                         <Route path={'/movie/:id'} element={<FilmPage/>}/>
                     </Routes>
+                    <Footer/>
                 </div>
             </BrowserRouter>
         </Provider>

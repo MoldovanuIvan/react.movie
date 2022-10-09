@@ -29,7 +29,7 @@ const MainCarousel = () => {
 
     if (!movies?.length) return null
 
-    return <div>
+    return <div className={styles.carouselWrapper}>
         <Swiper
             slidesPerView={1}
             spaceBetween={0}
@@ -50,7 +50,7 @@ const MainCarousel = () => {
                         <div className={styles.description}><SText size={15} weight={500} color={'#fffcfc'}
                                                                    lineHeight={20}>{item.overview}</SText></div>
                         <div className={styles.buttons}>
-                            <NavLink to={`/movie/${item.id}`}>
+                            <NavLink to={`/movie/${item.id}`} onClick={() => window.scrollTo(0, 0)}>
                                 <div className={styles.watchNowBtn}>
                                     <SText size={20} weight={500} lineHeight={20}
                                            color={'#fffcfc'}>{'Watch now'}</SText>

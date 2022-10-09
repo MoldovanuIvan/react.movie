@@ -15,32 +15,32 @@ const initialState = {
 
 export const getMovieInfo = createAsyncThunk(
     'movie/getMovieInfo',
-    async (id) => {
-        const response = await axios.get(BASE_URL + 'movie/' + id + '?api_key=' + token)
+    async ({id,type}) => {
+        const response = await axios.get(BASE_URL + type + '/' + id + '?api_key=' + token)
         return response?.data
     }
 )
 
 export const getMovieCast = createAsyncThunk(
     'movie/getMovieCast',
-    async (id) => {
-        const response = await axios.get(BASE_URL + 'movie/' + id + '/credits' + '?api_key=' + token)
+    async ({id,type}) => {
+        const response = await axios.get(BASE_URL + type + '/' + id + '/credits' + '?api_key=' + token)
         return response?.data?.cast
     }
 )
 
 export const getMovieSimilar = createAsyncThunk(
     'movie/getMovieSimilar',
-    async (id) => {
-        const response = await axios.get(BASE_URL + 'movie/' + id + '/similar' + '?api_key=' + token)
+    async ({id,type}) => {
+        const response = await axios.get(BASE_URL + type + '/' + id + '/similar' + '?api_key=' + token)
         return response?.data?.results
     }
 )
 
 export const getMovieTrailers = createAsyncThunk(
     'movie/getMovieTrailers',
-    async (id) => {
-        const response = await axios.get(BASE_URL + 'movie/' + id + '/videos?api_key=' + token)
+    async ({id,type}) => {
+        const response = await axios.get(BASE_URL + type + '/' + id + '/videos?api_key=' + token)
         return response?.data?.results
     }
 )

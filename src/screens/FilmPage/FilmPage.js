@@ -15,15 +15,15 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import FilmCard from "../../components/FilmCard/FilmCard";
 
 const FilmPage = () => {
-    const {id} = useParams()
+    const {id, type} = useParams()
     const dispatch = useDispatch()
     const movieInfo = useSelector(state => state.movie)
     console.log(movieInfo)
     useEffect(() => {
-        dispatch(getMovieInfo(id))
-        dispatch(getMovieCast(id))
-        dispatch(getMovieSimilar(id))
-        dispatch(getMovieTrailers(id))
+        dispatch(getMovieInfo({id, type}))
+        dispatch(getMovieCast({id, type}))
+        dispatch(getMovieSimilar({id, type}))
+        dispatch(getMovieTrailers({id, type}))
     }, [id])
 
     useEffect(() => {
@@ -60,20 +60,23 @@ const FilmPage = () => {
         </div>
         <div className={styles.trailers}>
             {
-                movieInfo.trailers.slice(0,4).map(item => <div>
-                    <div className={styles.trailerTitle}><SText size={20} lineHeight={20} weight={600}>{item.name}</SText></div>
-                    <div className={styles.trailer}><ReactPlayer url={'https://www.youtube.com/embed/' + item.key} controls playing={false}/></div>
+                movieInfo.trailers.slice(0, 4).map(item => <div>
+                    <div className={styles.trailerTitle}><SText size={20} lineHeight={20}
+                                                                weight={600}>{item.name}</SText></div>
+                    <div className={styles.trailer}><ReactPlayer url={'https://www.youtube.com/embed/' + item.key}
+                                                                 controls playing={false}/></div>
                 </div>)
             }
         </div>
         <div className={styles.similar}>
+            <div className={styles.trailerTitle}><SText size={20} lineHeight={20} weight={600}>{'Similar'}</SText></div>
             <Swiper
                 slidesPerView={6.5}
                 spaceBetween={8}
             >
                 {
                     movieInfo.similar.map(item => <SwiperSlide>
-                        <FilmCard id={item.id} title={item.title} poster={item.poster_path} rating={item.vote_average}/>
+                        <FilmCard type={type} id={item.id} title={item.title} poster={item.poster_path} rating={item.vote_average}/>
                     </SwiperSlide>)
                 }
             </Swiper>

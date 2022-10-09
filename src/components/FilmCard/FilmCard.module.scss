@@ -32,7 +32,7 @@
   width: 50px;
   height: initial;
   position: absolute;
-  top: 50%;
+  top: calc(50% - 17px);
   left: calc(50% - 25px);
   opacity: 0;
 }

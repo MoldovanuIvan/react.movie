@@ -1,12 +1,45 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from './ViewMoreMovies.module.scss'
 import SText from "../../components/SText";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import {clearProposal, getProposal} from "../../redux/reducers/proposalSlice";
+import FilmCard from "../../components/FilmCard/FilmCard";
 
 const ViewMoreMovies = () => {
+    const dispatch = useDispatch()
+    const {type} = useParams()
+    const data = useSelector(state => state.proposal)
+    const [page, setPage] = useState(1)
 
-    return <div>
-        <div><SText>{'Movies'}</SText></div>
-        
+    useEffect(() => {
+        if (type === 'movie')
+            dispatch(getProposal({movieType: 'movie', filterType: 'popular', page}))
+        else if (type === 'tv')
+            dispatch(getProposal({movieType: 'tv', filterType: 'popular', page}))
+    }, [page])
+
+    useEffect(()=>{
+        return ()=>dispatch(clearProposal())
+    }, [])
+
+    return <div className={styles.wrapper}>
+        <div className={styles.title}><SText size={40} weight={500}>{type === 'movie' ? 'Movies' : 'TV Series'}</SText>
+        </div>
+        <div className={styles.cardsGrid}>
+            {
+                type === 'movie' ?
+                    data.popularMovies.map(item => <FilmCard type={'movie'} id={item.id} title={item.title}
+                                                             poster={item.poster_path} rating={item.vote_average}/>) :
+                    data.popularTV.map(item => <FilmCard type={'tv'} id={item.id} title={item.name}
+                                                         poster={item.poster_path} rating={item.vote_average}/>)
+            }
+        </div>
+        <div className={styles.loadMore}>
+            <div onClick={() => setPage(prev => prev + 1)} className={styles.loadBtn}>
+                {'Load more'}
+            </div>
+        </div>
     </div>
 }
 

@@ -12,8 +12,8 @@ const initialState = {
 
 export const getProposal = createAsyncThunk(
     'proposal/getProposal',
-    async ({movieType, filterType},) => {
-        const response = await axios.get(BASE_URL + movieType + '/' + filterType + '?api_key=' + token + '&page=2')
+    async ({movieType, filterType, page = 1},) => {
+        const response = await axios.get(BASE_URL + movieType + '/' + filterType + '?api_key=' + token + '&page=' + page)
         console.log({
             movieType,
             filterType,
@@ -50,12 +50,17 @@ const getObjectKey = (movieType, filterType) => {
 const proposalSlice = createSlice({
     name: 'proposal',
     initialState,
-    reducers: {},
+    reducers: {
+        clearProposal: (state) => {
+            return initialState
+        }
+    },
     extraReducers: {
         [getProposal.fulfilled]: (state, action) => {
-            state[getObjectKey(action.payload.movieType, action.payload.filterType)] = action.payload.data
+            state[getObjectKey(action.payload.movieType, action.payload.filterType)].push(...action.payload.data)
         }
     },
 })
 
+export const {clearProposal} = proposalSlice.actions
 export default proposalSlice.reducer

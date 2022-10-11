@@ -5,12 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {clearProposal, getProposal} from "../../redux/reducers/proposalSlice";
 import FilmCard from "../../components/FilmCard/FilmCard";
+import useSearch from "../../components/data/SearchContext";
 
 const ViewMoreMovies = () => {
     const dispatch = useDispatch()
     const {type} = useParams()
     const data = useSelector(state => state.proposal)
     const [page, setPage] = useState(1)
+    const {query, setQuery, results} = useSearch()
 
     useEffect(() => {
         if (type === 'movie')
@@ -19,12 +21,16 @@ const ViewMoreMovies = () => {
             dispatch(getProposal({movieType: 'tv', filterType: 'popular', page}))
     }, [page])
 
-    useEffect(()=>{
-        return ()=>dispatch(clearProposal())
+    useEffect(() => {
+        return () => dispatch(clearProposal())
     }, [])
 
     return <div className={styles.wrapper}>
         <div className={styles.title}><SText size={40} weight={500}>{type === 'movie' ? 'Movies' : 'TV Series'}</SText>
+        </div>
+        <div className={styles.searchBlock}>
+            <input value={query} onChange={(e) => setQuery(e.target.value)} type="text" placeholder={'Enter keyword'}/>
+            <div className={styles.searchBtn}><SText>{'Search'}</SText></div>
         </div>
         <div className={styles.cardsGrid}>
             {

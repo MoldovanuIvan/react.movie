@@ -14,12 +14,6 @@ export const getProposal = createAsyncThunk(
     'proposal/getProposal',
     async ({movieType, filterType, page = 1},) => {
         const response = await axios.get(BASE_URL + movieType + '/' + filterType + '?api_key=' + token + '&page=' + page)
-        console.log({
-            movieType,
-            filterType,
-            data: response.data.results,
-            page: response.data.page,
-        })
         return {
             movieType,
             filterType,

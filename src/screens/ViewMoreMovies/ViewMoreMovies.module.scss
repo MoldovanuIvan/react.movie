@@ -10,6 +10,32 @@
   margin-bottom: 50px;
 }
 
+.searchBlock {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.searchBlock input {
+  background: #000;
+  padding: 5px 10px;
+  border-radius: 12px;
+  width: 275px;
+  color: #fffcfc;
+}
+
+.searchBlock .searchBtn {
+  background: #ff0000;
+  color: #fffcfc;
+  padding: 5px 20px;
+  border-radius: 24px;
+  -webkit-box-shadow: 0px 1px 14px 12px rgba(255, 0, 0, 0.43);
+  -moz-box-shadow: 0px 1px 14px 12px rgba(255, 0, 0, 0.43);
+  box-shadow: 0px 1px 14px 8px rgba(255, 0, 0, 0.43);
+  cursor: pointer;
+}
+
 .cardsGrid {
   width: 100%;
   display: grid;

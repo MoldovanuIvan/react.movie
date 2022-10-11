@@ -10,23 +10,27 @@ import {
 import FilmPage from "./screens/FilmPage/FilmPage";
 import Footer from "./components/Footer/Footer";
 import ViewMoreMovies from "./screens/ViewMoreMovies/ViewMoreMovies";
+import {SearchContext, useSearchContext} from "./components/data/SearchContext";
 
 const App = () => {
+    const searchData = useSearchContext()
 
     return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <div>
-                    <Header/>
-                    <Routes>
-                        <Route path={'/*'} element={<HomePage/>}/>
-                        <Route path={'/:type'} element={<ViewMoreMovies/>}/>
-                        <Route path={'/:type/:id'} element={<FilmPage/>}/>
-                    </Routes>
-                    <Footer/>
-                </div>
-            </BrowserRouter>
-        </Provider>
+        <SearchContext.Provider value={searchData}>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <div>
+                        <Header/>
+                        <Routes>
+                            <Route path={'/*'} element={<HomePage/>}/>
+                            <Route path={'/:type'} element={<ViewMoreMovies/>}/>
+                            <Route path={'/:type/:id'} element={<FilmPage/>}/>
+                        </Routes>
+                        <Footer/>
+                    </div>
+                </BrowserRouter>
+            </Provider>
+        </SearchContext.Provider>
     );
 }
 

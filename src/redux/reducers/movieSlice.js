@@ -61,7 +61,7 @@ const movieSlice = createSlice({
             state.id = action.payload.id
             state.genres = action.payload.genres
             state.overview = action.payload.overview
-            state.title = action.payload.title
+            state.title = action.payload.title || action.payload.name
             state.backdrop = action.payload.backdrop_path
             state.poster = action.payload.poster_path
         },

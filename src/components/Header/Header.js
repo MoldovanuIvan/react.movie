@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react'
 import styles from './Header.module.scss'
 import logo from '../../assets/images/logoMain.svg'
 import SText from "../SText";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 
 const Header = () => {
     const [darkStyle, setDarkStyle] = useState(false)
+    const {pathname} = useLocation()
 
     useEffect(() => {
         document.addEventListener('scroll', () => {
@@ -19,7 +20,6 @@ const Header = () => {
                 setDarkStyle(true)
             } else setDarkStyle(false)
         })
-
     }, [])
 
     return <div style={{background: darkStyle ? '#0f0f0f' : 'initial'}} className={styles.wrapper}>
@@ -31,9 +31,13 @@ const Header = () => {
                 </div>
             </NavLink>
             <div className={styles.nav}>
-                <SText size={20} weight={500}>{'Home'}</SText>
-                <SText size={20} weight={500}>{'Movie'}</SText>
-                <SText size={20} weight={500}>{'Series'}</SText>
+                <NavLink to={'/'} onClick={()=>window.scrollTo(0,0)}><SText style={{borderBottom: pathname === '/' ? '2px solid #ff0000' : 'none'}}
+                                         size={20} weight={500}>{'Home'}</SText></NavLink>
+                <NavLink to={'/movie'} onClick={()=>window.scrollTo(0,0)}><SText
+                    style={{borderBottom: pathname === '/movie' ? '2px solid #ff0000' : 'none'}} size={20}
+                    weight={500}>{'Movie'}</SText></NavLink>
+                <NavLink to={'/tv'} onClick={()=>window.scrollTo(0,0)}><SText style={{borderBottom: pathname === '/tv' ? '2px solid #ff0000' : 'none'}}
+                                           size={20} weight={500}>{'Series'}</SText></NavLink>
             </div>
         </div>
     </div>

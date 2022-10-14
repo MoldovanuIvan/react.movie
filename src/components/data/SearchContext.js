@@ -1,29 +1,16 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {BASE_URL, token} from "../../api";
-
-
-export function useCoolDown(callback = (...args) => {
-}, timeout = 400) {
-
-    const [timer, setTimer] = useState(0)
-
-    return (...args) => {
-        if (timer)
-            clearTimeout(timer)
-
-        const newTimer = setTimeout(() => {
-            return callback(...args)
-        }, timeout)
-
-        setTimer(newTimer)
-    }
-}
+import {useCoolDown} from "../utils/hooks";
 
 const shape = {
     query: '',
     results: [],
+    type: '',
     setQuery: (e) => {},
+    setType: () => {},
+    setEnterPressed: () => {},
+    clearResults: () => {},
 }
 
 export const SearchContext = createContext(shape)
@@ -31,12 +18,17 @@ export const SearchContext = createContext(shape)
 export const useSearchContext = () => {
     const [query, setQuery] = useState('')
     const [results, setResults] = useState([])
+    const [type, setType] = useState('')
+    const [enterPressed, setEnterPressed] = useState(false)
 
     const search = async (value) => {
-        if (query !== '') {
-            const response = await axios.get(BASE_URL + 'search/movie?api_key=' + token + '&query=' + value)
-            console.log(response?.data)
+        console.log(enterPressed)
+        if (query !== '' && enterPressed) {
+            const response = await axios.get(BASE_URL + `search/${type}?api_key=` + token + '&query=' + value)
+            console.log(response)
             setResults(response?.data?.results)
+            if (response?.status === 200)
+                setEnterPressed(false)
         }
         return []
     }
@@ -51,12 +43,20 @@ export const useSearchContext = () => {
 
     useEffect(() => {
         handleChange(query)
-    }, [query])
+    }, [enterPressed])
+
+    const clearResults = () => {
+        setResults([])
+        setQuery('')
+    }
 
     return {
         query,
         setQuery,
         results,
+        setType,
+        setEnterPressed,
+        clearResults,
     }
 }
 

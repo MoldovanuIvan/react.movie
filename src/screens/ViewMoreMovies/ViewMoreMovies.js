@@ -12,14 +12,26 @@ const ViewMoreMovies = () => {
     const {type} = useParams()
     const data = useSelector(state => state.proposal)
     const [page, setPage] = useState(1)
-    const {query, setQuery, results} = useSearch()
+    const {query, setQuery, setType, results, setEnterPressed, clearResults} = useSearch()
 
     useEffect(() => {
         if (type === 'movie')
             dispatch(getProposal({movieType: 'movie', filterType: 'popular', page}))
         else if (type === 'tv')
             dispatch(getProposal({movieType: 'tv', filterType: 'popular', page}))
-    }, [page])
+    }, [page, type])
+
+    useEffect(() => {
+        setType(type)
+    }, [type])
+
+    useEffect(()=>{
+        clearResults()
+    }, [type])
+
+    useEffect(() => {
+        return () => clearResults()
+    }, [])
 
     useEffect(() => {
         return () => dispatch(clearProposal())
@@ -29,16 +41,22 @@ const ViewMoreMovies = () => {
         <div className={styles.title}><SText size={40} weight={500}>{type === 'movie' ? 'Movies' : 'TV Series'}</SText>
         </div>
         <div className={styles.searchBlock}>
-            <input value={query} onChange={(e) => setQuery(e.target.value)} type="text" placeholder={'Enter keyword'}/>
+            <input value={query} onKeyPress={(e) => {
+                if (e.key === 'Enter')
+                    setEnterPressed(true)
+            }} onChange={(e) => setQuery(e.target.value)} type="text" placeholder={'Enter keyword'}/>
             <div className={styles.searchBtn}><SText>{'Search'}</SText></div>
         </div>
         <div className={styles.cardsGrid}>
             {
-                type === 'movie' ?
-                    data.popularMovies.map(item => <FilmCard type={'movie'} id={item.id} title={item.title}
-                                                             poster={item.poster_path} rating={item.vote_average}/>) :
-                    data.popularTV.map(item => <FilmCard type={'tv'} id={item.id} title={item.name}
-                                                         poster={item.poster_path} rating={item.vote_average}/>)
+                results.length ? results.map(item => <FilmCard type={'movie'} id={item.id} title={item.title || item.name}
+                                                        poster={item.poster_path} rating={item.vote_average}/>) :
+                    type === 'movie' ?
+                        data.popularMovies.map(item => <FilmCard type={'movie'} id={item.id} title={item.title}
+                                                                 poster={item.poster_path}
+                                                                 rating={item.vote_average}/>) :
+                        data.popularTV.map(item => <FilmCard type={'tv'} id={item.id} title={item.name}
+                                                             poster={item.poster_path} rating={item.vote_average}/>)
             }
         </div>
         <div className={styles.loadMore}>

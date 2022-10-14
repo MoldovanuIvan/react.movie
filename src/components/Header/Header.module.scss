@@ -41,5 +41,10 @@
     cursor: pointer;
     border-bottom: 2px solid #ff0000;
     padding-bottom: 7px;
+
+    &:hover {
+      border-bottom: 2px solid #ff0000 !important;
+      transition: border-bottom-width 0.3s ease;
+    }
   }
 }

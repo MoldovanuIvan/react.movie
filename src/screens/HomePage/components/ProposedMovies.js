@@ -12,10 +12,10 @@ const ProposedMovies = () => {
     const data = useSelector(state => state.proposal)
 
     useEffect(() => {
-        dispatch(getProposal({movieType:'movie', filterType:'popular'}))
-        dispatch(getProposal({movieType:'movie', filterType:'top_rated'}))
-        dispatch(getProposal({movieType:'tv', filterType:'popular'}))
-        dispatch(getProposal({movieType:'tv', filterType:'top_rated'}))
+        dispatch(getProposal({movieType: 'movie', filterType: 'popular'}))
+        dispatch(getProposal({movieType: 'movie', filterType: 'top_rated'}))
+        dispatch(getProposal({movieType: 'tv', filterType: 'popular'}))
+        dispatch(getProposal({movieType: 'tv', filterType: 'top_rated'}))
     }, [])
 
     const proposalCreator = (title, data, type) => {
@@ -23,7 +23,9 @@ const ProposedMovies = () => {
         return <div className={styles.proposalLine}>
             <div className={styles.proposalTitle}>
                 <SText size={20} lineHeight={20} weight={600}>{title}</SText>
-                <NavLink to={'/' + type}><div className={styles.moreBtn}>{'View more'}</div></NavLink>
+                <NavLink to={'/' + type} onClick={() => window.scrollTo(0, 0)}>
+                    <div className={styles.moreBtn}>{'View more'}</div>
+                </NavLink>
             </div>
             <div className={styles.proposal}>
                 <Swiper
@@ -32,7 +34,8 @@ const ProposedMovies = () => {
                 >
                     {
                         data.map(item => <SwiperSlide>
-                            <FilmCard type={type} id={item.id} title={item.title || item.name} poster={item.poster_path} rating={item.vote_average}/>
+                            <FilmCard type={type} id={item.id} title={item.title || item.name} poster={item.poster_path}
+                                      rating={item.vote_average}/>
                         </SwiperSlide>)
                     }
                 </Swiper>

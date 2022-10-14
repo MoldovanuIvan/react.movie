@@ -18,7 +18,7 @@ const FilmPage = () => {
     const {id, type} = useParams()
     const dispatch = useDispatch()
     const movieInfo = useSelector(state => state.movie)
-    console.log(movieInfo)
+
     useEffect(() => {
         dispatch(getMovieInfo({id, type}))
         dispatch(getMovieCast({id, type}))

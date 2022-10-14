@@ -12,7 +12,7 @@ const initialState = {
 
 export const getProposal = createAsyncThunk(
     'proposal/getProposal',
-    async ({movieType, filterType, page = 1},) => {
+    async ({movieType, filterType, page = 1}) => {
         const response = await axios.get(BASE_URL + movieType + '/' + filterType + '?api_key=' + token + '&page=' + page)
         return {
             movieType,
@@ -51,7 +51,9 @@ const proposalSlice = createSlice({
     },
     extraReducers: {
         [getProposal.fulfilled]: (state, action) => {
-            state[getObjectKey(action.payload.movieType, action.payload.filterType)].push(...action.payload.data)
+            // state[getObjectKey(action.payload?.movieType, action.payload?.filterType)].push(...action.payload?.data)
+            state[getObjectKey(action.payload?.movieType, action.payload?.filterType)] = [...new Set([...state[getObjectKey(action.payload?.movieType, action.payload?.filterType)], ...action.payload?.data])].slice(1)
+            state.page = action.payload?.page
         }
     },
 })

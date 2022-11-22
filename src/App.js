@@ -11,6 +11,7 @@ import FilmPage from "./screens/FilmPage/FilmPage";
 import Footer from "./components/Footer/Footer";
 import ViewMoreMovies from "./screens/ViewMoreMovies/ViewMoreMovies";
 import {SearchContext, useSearchContext} from "./components/data/SearchContext";
+import Search from "./screens/Search/Search";
 
 const App = () => {
     const searchData = useSearchContext()
@@ -24,6 +25,7 @@ const App = () => {
                         <Routes>
                             <Route path={'/*'} element={<HomePage/>}/>
                             <Route path={'/:type'} element={<ViewMoreMovies/>}/>
+                            <Route path={'/:type/!:keyWords'} element={<Search/>}/>
                             <Route path={'/:type/:id'} element={<FilmPage/>}/>
                         </Routes>
                         <Footer/>

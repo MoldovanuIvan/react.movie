@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import styles from './ViewMoreMovies.module.scss'
 import SText from "../../components/SText";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {clearProposal, getProposal} from "../../redux/reducers/proposalSlice";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import useSearch from "../../components/data/SearchContext";
@@ -12,7 +12,8 @@ const ViewMoreMovies = () => {
     const {type} = useParams()
     const data = useSelector(state => state.proposal)
     const [page, setPage] = useState(1)
-    const {query, setQuery, setType, results, setEnterPressed, clearResults} = useSearch()
+    const navigate = useNavigate()
+    const {query, setQuery} = useSearch()
 
     useEffect(() => {
         if (type === 'movie')
@@ -22,19 +23,10 @@ const ViewMoreMovies = () => {
     }, [page, type])
 
     useEffect(() => {
-        setType(type)
-    }, [type])
-
-    useEffect(()=>{
-        clearResults()
-    }, [type])
-
-    useEffect(() => {
-        return () => clearResults()
-    }, [])
-
-    useEffect(() => {
-        return () => dispatch(clearProposal())
+        return () => {
+            dispatch(clearProposal())
+            setQuery('')
+        }
     }, [])
 
     return <div className={styles.wrapper}>
@@ -42,21 +34,22 @@ const ViewMoreMovies = () => {
         </div>
         <div className={styles.searchBlock}>
             <input value={query} onKeyPress={(e) => {
-                if (e.key === 'Enter')
-                    setEnterPressed(true)
+                if (e.key === 'Enter') {
+                    navigate('/' + type + '/!' + query)
+                }
             }} onChange={(e) => setQuery(e.target.value)} type="text" placeholder={'Enter keyword'}/>
-            <div className={styles.searchBtn}><SText>{'Search'}</SText></div>
+            <div onClick={() => {
+                navigate('/' + type + '/!' + query)
+            }} className={styles.searchBtn}><SText>{'Search'}</SText></div>
         </div>
         <div className={styles.cardsGrid}>
             {
-                results.length ? results.map(item => <FilmCard type={'movie'} id={item.id} title={item.title || item.name}
-                                                        poster={item.poster_path} rating={item.vote_average}/>) :
-                    type === 'movie' ?
-                        data.popularMovies.map(item => <FilmCard type={'movie'} id={item.id} title={item.title}
-                                                                 poster={item.poster_path}
-                                                                 rating={item.vote_average}/>) :
-                        data.popularTV.map(item => <FilmCard type={'tv'} id={item.id} title={item.name}
-                                                             poster={item.poster_path} rating={item.vote_average}/>)
+                type === 'movie' ?
+                    data.popularMovies.map(item => <FilmCard type={'movie'} id={item.id} title={item.title}
+                                                             poster={item.poster_path}
+                                                             rating={item.vote_average}/>) :
+                    data.popularTV.map(item => <FilmCard type={'tv'} id={item.id} title={item.name}
+                                                         poster={item.poster_path} rating={item.vote_average}/>)
             }
         </div>
         <div className={styles.loadMore}>

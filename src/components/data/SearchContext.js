@@ -7,10 +7,10 @@ const shape = {
     query: '',
     results: [],
     type: '',
-    setQuery: (e) => {},
+    setQuery: () => {},
     setType: () => {},
-    setEnterPressed: () => {},
     clearResults: () => {},
+    doSearch: () => {},
 }
 
 export const SearchContext = createContext(shape)
@@ -19,21 +19,16 @@ export const useSearchContext = () => {
     const [query, setQuery] = useState('')
     const [results, setResults] = useState([])
     const [type, setType] = useState('')
-    const [enterPressed, setEnterPressed] = useState(false)
 
-    const search = async (value) => {
-        console.log(enterPressed)
-        if (query !== '' && enterPressed) {
-            const response = await axios.get(BASE_URL + `search/${type}?api_key=` + token + '&query=' + value)
-            console.log(response)
+    const doSearch = async () => {
+        if (query !== '') {
+            const response = await axios.get(BASE_URL + `search/${type}?api_key=` + token + '&query=' + query)
             setResults(response?.data?.results)
-            if (response?.status === 200)
-                setEnterPressed(false)
         }
         return []
     }
 
-    const debouncedSearch = useCoolDown(async (value) => {
+/*    const debouncedSearch = useCoolDown(async (value) => {
         await search(value);
     }, 300);
 
@@ -43,7 +38,7 @@ export const useSearchContext = () => {
 
     useEffect(() => {
         handleChange(query)
-    }, [enterPressed])
+    }, [query])*/
 
     const clearResults = () => {
         setResults([])
@@ -55,7 +50,7 @@ export const useSearchContext = () => {
         setQuery,
         results,
         setType,
-        setEnterPressed,
+        doSearch,
         clearResults,
     }
 }

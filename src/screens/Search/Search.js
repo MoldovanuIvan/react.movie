@@ -7,7 +7,6 @@ import useSearch from "../../components/data/SearchContext";
 
 const Search = () => {
     const {type, keyWords} = useParams()
-    const [page, setPage] = useState(1)
     const {query, setQuery, setType, results, clearResults, doSearch} = useSearch()
     const navigate = useNavigate()
 
@@ -47,11 +46,6 @@ const Search = () => {
                                                                poster={item.poster_path} rating={item.vote_average}/>)
                     : null
             }
-        </div>
-        <div className={styles.loadMore}>
-            <div onClick={() => setPage(prev => prev + 1)} className={styles.loadBtn}>
-                {'Load more'}
-            </div>
         </div>
     </div>
 }

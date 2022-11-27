@@ -44,7 +44,7 @@ const MainCarousel = () => {
             {movies.map(item => <SwiperSlide className={styles.slide} key={item.id}>
                 <img src={'https://image.tmdb.org/t/p/w1280' + item.backdrop_path}/>
                 <div className={styles.info}>
-                    <div>
+                    <div style={{paddingBottom: 10}}>
                         <div className={styles.title}><SText size={70} weight={900} color={'#fffcfc'}
                                                              lineHeight={70}>{item.title}</SText></div>
                         <div className={styles.description}><SText size={15} weight={500} color={'#fffcfc'}

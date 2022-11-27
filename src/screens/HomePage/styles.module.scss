@@ -31,10 +31,10 @@
 
 .info {
   position: absolute;
-  top: calc(50% - 150px);
-  left: calc(50% - 250px);
+  bottom: 50px;
+  right: 50px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 30px;
   width: 900px;
 
@@ -52,11 +52,10 @@
 }
 
 .poster {
-  height: 600px;
   width: 300px;
   border-radius: 24px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   img {
     border-radius: 24px;
 

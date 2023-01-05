@@ -33,11 +33,11 @@ const MainCarousel = () => {
         <Swiper
             slidesPerView={1}
             spaceBetween={0}
-            modules={[/*Autoplay,*/ EffectCoverflow]}
+            modules={[Autoplay, EffectCoverflow]}
             className={styles.sliderWrapper}
             grabCursor={true}
-            /*            autoplay={{delay: 2000}}*/
-            /*speed={2000}*/
+            autoplay={{delay: 2000}}
+            speed={2000}
             loop
             effect={'coverflow'}
         >

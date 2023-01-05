@@ -16,11 +16,8 @@ const ViewMoreMovies = () => {
     const {query, setQuery} = useSearch()
 
     useEffect(() => {
-        if (type === 'movie')
-            dispatch(getProposal({movieType: 'movie', filterType: 'popular', page}))
-        else if (type === 'tv')
-            dispatch(getProposal({movieType: 'tv', filterType: 'popular', page}))
-    }, [page, type])
+        dispatch(getProposal({movieType: type, filterType: 'popular', page}))
+    }, [type, page])
 
     useEffect(() => {
         return () => {

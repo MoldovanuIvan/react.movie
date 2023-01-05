@@ -2,6 +2,8 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import {BASE_URL, token} from "../../api";
 
+var _ = require('lodash');
+
 const initialState = {
     popularMovies: [],
     popularTV: [],
@@ -45,14 +47,14 @@ const proposalSlice = createSlice({
     name: 'proposal',
     initialState,
     reducers: {
-        clearProposal: (state) => {
+        clearProposal: () => {
             return initialState
         }
     },
     extraReducers: {
         [getProposal.fulfilled]: (state, action) => {
-            // state[getObjectKey(action.payload?.movieType, action.payload?.filterType)].push(...action.payload?.data)
-            state[getObjectKey(action.payload?.movieType, action.payload?.filterType)] = [...new Set([...state[getObjectKey(action.payload?.movieType, action.payload?.filterType)], ...action.payload?.data])].slice(1)
+            state[getObjectKey(action.payload?.movieType, action.payload?.filterType)] = [...[...state[getObjectKey(action.payload?.movieType, action.payload?.filterType)], ...action.payload?.data]]
+            state[getObjectKey(action.payload?.movieType, action.payload?.filterType)] = [...new Map(state[getObjectKey(action.payload?.movieType, action.payload?.filterType)].map(item => [item['backdrop_path'], item])).values()]
             state.page = action.payload?.page
         }
     },

@@ -24,6 +24,7 @@ const App = () => {
                         <Header/>
                         <Routes>
                             <Route path={'/*'} element={<HomePage/>}/>
+                            
                             <Route path={'/react.movie/'} element={<Navigate to={'/'} replace/>}/>
                             <Route path={'/:type'} element={<ViewMoreMovies/>}/>
                             <Route path={'/:type/!:keyWords'} element={<Search/>}/>

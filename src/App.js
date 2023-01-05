@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import store from './redux/store'
 import {
     BrowserRouter,
-    Routes, Route,
+    Routes, Route, Navigate
 } from "react-router-dom";
 import FilmPage from "./screens/FilmPage/FilmPage";
 import Footer from "./components/Footer/Footer";
@@ -24,6 +24,7 @@ const App = () => {
                         <Header/>
                         <Routes>
                             <Route path={'/*'} element={<HomePage/>}/>
+                            <Route path={'/react.movie/'} element={<Navigate to={'/'} replace/>}/>
                             <Route path={'/:type'} element={<ViewMoreMovies/>}/>
                             <Route path={'/:type/!:keyWords'} element={<Search/>}/>
                             <Route path={'/:type/:id'} element={<FilmPage/>}/>

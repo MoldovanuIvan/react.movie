@@ -10,6 +10,7 @@ const initialState = {
     topRatedMovies: [],
     topRatedTV: [],
     page: 0,
+
 }
 
 export const getProposal = createAsyncThunk(
